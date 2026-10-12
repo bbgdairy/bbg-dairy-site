@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BBG Dairy | Pure, Fresh & Healthy</title>
+  <meta name="theme-color" content="#087a45" />
+  <style>
+    :root{
+      --green:#087a45;
+      --dark:#075b35;
+      --cream:#fffaf0;
+      --yellow:#ffdf68;
+      --ink:#183329;
+      --muted:#66756e;
+      --line:#e2ece5;
+      --bg:#f5f8f5;
+      --white:#ffffff;
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family: Arial, "Noto Sans Devanagari", sans-serif;
+    }
+    a { text-decoration:none; }
+    img { max-width:100%; display:block; }
+
+    header{
+      background:var(--green);
+      color:white;
+      padding:12px 18px;
+      position:sticky;
+      top:0;
+      z-index:30;
+      box-shadow:0 2px 12px rgba(0,59,29,0.2);
+    }
+    .head{
+      max-width:1200px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .brandwrap{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:220px;
+    }
+    .logo-img{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      object-fit:cover;
+      border:2px solid white;
+      background:white;
+    }
+    .brand{
+      font-size:24px;
+      font-weight:900;
+      letter-spacing:-0.5px;
+      color:white;
+    }
+    .brand span{ color:var(--yellow); }
+    .tag{
+      font-size:11px;
+      color:#e0f7e9;
+      letter-spacing:0.1px;
+    }
+    .search{
+      display:flex;
+      flex:1;
+      gap:8px;
+    }
+    .search input{
+      width:100%;
+      padding:11px 14px;
+      border:0;
+      border-radius:9px;
+      font-size:14px;
+      outline-color:var(--yellow);
+    }
+    .search button{
+      border:0;
+      background:var(--yellow);
+      border-radius:9px;
+      padding:0 16px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .header-actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .cartbtn, .userbtn{
+      background:var(--yellow);
+      border:0;
+      padding:11px 15px;
+      border-radius:9px;
+      font-weight:bold;
+      color:#173a28;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    nav{
+      background:var(--dark);
+      color:white;
+      padding:10px 18px;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-size:13px;
+      cursor:pointer;
+    }
+    nav a:hover{ color:var(--yellow); }
+
+    main{
+      max-width:1200px;
+      margin:20px auto;
+      padding:0 18px;
+    }
+
+    .hero{
+      background:linear-gradient(125deg,#e5f8e9,#fff5d0);
+      border:1px solid #d7ead9;
+      border-radius:18px;
+      padding:38px 34px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      min-height:245px;
+      margin-bottom:20px;
+    }
+    .hero h1{
+      font-size:clamp(30px,4vw,47px);
+      line-height:1.15;
+      margin:0 0 12px;
+      color:var(--dark);
+    }
+    .hero p{
+      margin:0 0 18px;
+      line-height:1.6;
+      color:#496456;
+      font-size:17px;
+    }
+    .pill{
+      display:inline-block;
+      background:white;
+      border-radius:20px;
+      padding:7px 12px;
+      font-size:12px;
+      margin-bottom:12px;
+      color:var(--green);
+      font-weight:bold;
+    }
+    .shopnow{
+      background:var(--green);
+      color:white;
+      border:0;
+      padding:12px 18px;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .hero-art img{
+      width:clamp(120px,16vw,200px);
+      height:auto;
+      border-radius:50%;
+      background:white;
+      box-shadow:0 6px 20px rgba(23,59,37,0.2);
+      display:block;
+    }
+
+    h2{
+      font-size:22px;
+      margin:26px 0 14px;
+    }
+
+    .categories{
+      display:grid;
+      grid-template-columns:repeat(7,minmax(0,1fr));
+      gap:12px;
+    }
+    .cat{
+      border:1px solid var(--line);
+      background:white;
+      border-radius:12px;
+      padding:16px 8px;
+      text-align:center;
+      cursor:pointer;
+      color:var(--ink);
+      transition:0.15s ease;
+    }
+    .cat:hover, .product:hover{
+      box-shadow:0 5px 18px rgba(23,59,37,0.12);
+      transform:translateY(-2px);
+    }
+    .cat .emoji{
+      display:block;
+      font-size:32px;
+      margin-bottom:8px;
+    }
+    .cat span:last-child{
+      font-size:13px;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:15px;
+    }
+    .product{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:13px;
+      padding:15px;
+      min-width:0;
+      box-shadow:0 2px 8px rgba(23,59,37,0.08);
+      transition:0.15s ease;
+    }
+    .photo{
+      height:140px;
+      display:grid;
+      place-items:center;
+      font-size:68px;
+      background:#f3faf4;
+      border-radius:9px;
+      margin-bottom:12px;
+    }
+    .product h3{
+      font-size:16px;
+      margin:0 0 7px;
+      line-height:1.35;
+    }
+    .sub{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:9px;
+    }
+    .price{
+      font-weight:800;
+      font-size:19px;
+      color:var(--dark);
+    }
+    .unit{
+      font-weight:normal;
+      font-size:12px;
+      color:var(--muted);
+    }
+    .add{
+      width:100%;
+      margin-top:12px;
+      border:0;
+      background:var(--green);
+      color:white;
+      border-radius:8px;
+      padding:11px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    .add:hover{ background:var(--dark); }
+
+    .info{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-top:22px;
+    }
+    .info div{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:11px;
+      text-align:center;
+      padding:17px;
+      font-size:13px;
+      line-height:1.5;
+    }
+    .info b{
+      display:block;
+      margin:7px 0;
+    }
+
+    .fssai-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-top:25px;
+      margin-bottom:20px;
+    }
+    .fssai-mark{
+      font-size:24px;
+      font-weight:bold;
+      color:#087a45;
+    }
+
+    .small{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    footer{
+      background:#073e28;
+      color:#e9fff1;
+      padding:28px 18px;
+      margin-top:30px;
+    }
+    .footerinner{
+      max-width:1200px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .footerbox{
+      flex:1;
+      min-width:220px;
+      line-height:1.8;
+    }
+    .copyright{
+      max-width:1200px;
+      margin:20px auto 0;
+      padding-top:15px;
+      border-top:1px solid #0e5c3c;
+      text-align:center;
+      font-size:12px;
+      color:#a3dec2;
+    }
+    .admin-link{
+      color:var(--yellow);
+      cursor:pointer;
+      text-decoration:underline;
+      font-weight:bold;
+    }
+
+    .modalbg{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.55);
+      z-index:50;
+      align-items:center;
+      justify-content:center;
+      padding:15px;
+    }
+    .modal{
+      width:min(600px,100%);
+      max-height:88vh;
+      overflow:auto;
+      background:white;
+      border-radius:18px;
+      padding:22px;
+    }
+    .modalhead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .modalhead h2{
+      margin:0;
+    }
+    .close{
+      border:0;
+      background:#edf4ef;
+      padding:9px 12px;
+      border-radius:7px;
+      cursor:pointer;
+    }
+
+    .cartrow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:13px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .qty{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .qty button{
+      border:1px solid var(--line);
+      background:#f7faf7;
+      border-radius:6px;
+      padding:6px 10px;
+      cursor:pointer;
+    }
+    .total{
+      font-size:19px;
+      font-weight:bold;
+      text-align:right;
+      margin:17px 0;
+    }
+    .field{
+      width:100%;
+      border:1px solid #d5e2d8;
+      border-radius:8px;
+      padding:12px;
+      margin:6px 0;
+      font:inherit;
+    }
+    .checkout{
+      width:100%;
+      border:0;
+      background:#16864f;
+      color:white;
+      border-radius:9px;
+      padding:14px;
+      font-weight:bold;
+      font-size:15px;
+      cursor:pointer;
+      margin-top:8px;
+    }
+    .checkout:hover{ background:#0d693c; }
+
+    .tab-btn{
+      padding:8px 16px;
+      background:#e2ece5;
+      border:0;
+      border-radius:6px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+    .tab-btn.active{
+      background:var(--green);
+      color:white;
+    }
+
+    @media (max-width:900px){
+      .head{ gap:12px; flex-wrap:wrap; }
+      .brandwrap{ min-width:150px; }
+      .search{ order:3; flex-basis:100%; }
+      .categories{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+      .products{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .hero{ padding:28px; }
+      nav{ justify-content:flex-start; gap:22px; }
+    }
+
+    @media (max-width:600px){
+      header{ padding:12px; }
+      .brand{ font-size:23px; }
+      .brandwrap{ flex:1; min-width:0; }
+      .tag{ font-size:10px; }
+      .cartbtn{ padding:10px; font-size:13px; }
+      .search input{ padding:12px; }
+      .search button{ padding:0 14px; }
+      nav{ padding:11px 13px; gap:18px; }
+      nav a{ font-size:12px; }
+      main{ padding:0 12px; margin:13px auto; }
+      .hero{
+        padding:21px 17px;
+        min-height:0;
+        flex-direction:column;
+        text-align:center;
+      }
+      .hero h1{ font-size:29px; }
+      .hero p{ font-size:14px; }
+      .hero-art img{ width:90px; }
+      .logo-img{ width:42px; height:42px; }
+      h2{ font-size:19px; margin:21px 0 11px; }
+      .categories{
+        display:flex;
+        overflow-x:auto;
+        gap:9px;
+        padding-bottom:7px;
+      }
+      .cat{
+        min-width:83px;
+        padding:11px 6px;
+      }
+      .cat .emoji{ font-size:25px; }
+      .cat span:last-child{ font-size:11px; }
+      .products{ grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+      .product{ padding:10px; }
+      .photo{ height:95px; font-size:48px; }
+      .product h3{ font-size:14px; }
+      .price{ font-size:17px; }
+      .add{ padding:10px; font-size:13px; }
+      .info{ gap:7px; }
+      .info div{ padding:10px 4px; font-size:11px; }
+      .modalbg{ align-items:flex-end; padding:0; }
+      .modal{
+        border-radius:18px 18px 0 0;
+        padding:17px;
+        max-height:90vh;
+      }
+      .cartrow{ font-size:13px; }
+      .total{ font-size:17px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="head">
+      <div class="brandwrap">
+        <img src="/images/logo.jpg" class="logo-img" alt="BBG Dairy Logo">
+        <div>
+          <div class="brand">BBG <span>Dairy</span></div>
+          <div class="tag">Pure • Fresh • Healthy</div>
+        </div>
+      </div>
+
+      <form class="search" id="searchForm">
+        <input id="q" placeholder="Search Milk, Curd, Paneer..." aria-label="Search">
+        <button type="submit" aria-label="Search">⌕</button>
+      </form>
+
+      <div class="header-actions">
+        <button class="userbtn" onclick="openAuthModal()">👤 Account</button>
+        <button class="cartbtn" onclick="openCart()">🛒 Cart (<span id="count">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a onclick="setCat('All')">Home</a>
+    <a onclick="setCat('Milk')">Milk</a>
+    <a onclick="setCat('Curd')">Curd</a>
+    <a onclick="setCat('Paneer')">Paneer</a>
+    <a onclick="setCat('Ghee')">Ghee</a>
+    <a onclick="setCat('Buttermilk')">Butter Milk</a>
+    <a onclick="setCat('Others')">Other Dairy</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="pill">Your neighbourhood dairy shop</span>
+        <h1>Fresh dairy,<br>delivered to your door!</h1>
+        <p>Milk, curd, paneer, ghee and buttermilk.<br>Pick your favourites and place your order.</p>
+        <button class="shopnow" onclick="document.getElementById('productsTitle').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+      </div>
+      <div class="hero-art">
+        <img src="/images/logo.jpg" alt="" aria-hidden="true">
+      </div>
+    </section>
+
+    <h2>Shop by Category</h2>
+    <div class="categories" id="cats"></div>
+
+    <h2 id="productsTitle">Our Dairy Products</h2>
+    <div class="products" id="products"></div>
+
+    <p class="small" style="line-height:1.6;margin-top:18px;">
+      Note: Prices and pack sizes may vary based on daily availability. Final price will be confirmed on WhatsApp.
+    </p>
+
+    <div class="info">
+      <div>🥛<b>Fresh Products</b>Subject to daily availability</div>
+      <div>📍<b>Local Delivery</b>Right to your doorstep</div>
+      <div>💬<b>Easy Ordering</b>Order on WhatsApp</div>
+    </div>
+
+    <div class="fssai-card">
+      <div class="fssai-mark">fssai</div>
+      <div>
+        <b>FSSAI Registered Dairy</b><br>
+        <span class="small">Registration No: <b id="fssaiNo">21126176000036</b></span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footerinner">
+      <div class="footerbox">
+        <div class="brand">BBG <span>Dairy</span></div>
+        Pure • Fresh • Healthy<br>
+        Fresh Milk, Curd, Paneer, Ghee & Butter.
+      </div>
+
+      <div class="footerbox">
+        <b>Address:</b><br>
+        BBG Dairy<br>
+        17 A MAHTO TOLA JARUWATAND, Jaruatanr,<br>
+        Petarwar To Kashmar Road,<br>
+        Peterwar, Bokaro, Jharkhand - 829121
+      </div>
+
+      <div class="footerbox">
+        <b>Contact Details:</b><br>
+        Email: bbgdairy@zohomail.in<br>
+        Mobile: +91 76313 52084<br>
+        WhatsApp: +91 7631352084
+      </div>
+    </div>
+
+    <div class="copyright">
+      All Rights Reserved © BBG Dairy |
+      <span class="admin-link" onclick="openAdmin()">Admin Login Panel</span>
+    </div>
+  </footer>
+
+  <div class="modalbg" id="authModal">
+    <div class="modal" style="max-width:450px;">
+      <div class="modalhead">
+        <h2 id="authTitle">Customer Account</h2>
+        <button class="close" onclick="closeAuthModal()">✕</button>
+      </div>
+
+      <div style="display:flex;gap:10px;margin:15px 0;">
+        <button class="tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')">Login</button>
+        <button class="tab-btn" id="signupTabBtn" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <div id="userInfoArea" style="display:none;">
+        <p>Logged in as: <b id="userDisplayName">User</b></p>
+        <p id="userDisplayEmail" class="small"></p>
+        <p id="userDisplayPhone" class="small"></p>
+        <p id="userDisplayAddress" class="small"></p>
+        <button class="checkout" style="background:#cc3333;" onclick="logoutCustomer()">Logout</button>
+      </div>
+
+      <form id="loginForm" onsubmit="handleCustomerLogin(event)">
+        <input class="field" type="email" id="loginEmail" placeholder="Email Address" required>
+        <input class="field" type="password" id="loginPass" placeholder="Password" required>
+        <button type="submit" class="checkout">Login to Account</button>
+      </form>
+
+      <form id="signupForm" style="display:none;" onsubmit="handleCustomerSignup(event)">
+        <input class="field" type="text" id="signupName" placeholder="Full Name" required>
+        <input class="field" type="email" id="signupEmail" placeholder="Email Address" required>
+        <input class="field" type="tel" id="signupPhone" placeholder="Phone Number" required>
+        <input class="field" type="text" id="signupAddress" placeholder="Address" required>
+        <input class="field" type="password" id="signupPass" placeholder="Password" required>
+        <button type="submit" class="checkout">Create Account</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modalbg" id="modal">
+    <div class="modal">
+      <div class="modalhead">
+        <h2>Your Cart</h2>
+        <button class="close" onclick="closeCart()">Close ✕</button>
+      </div>
+
+      <div id="items"></div>
+      <div class="total" id="total">Total: ₹0</div>
+
+      <h3>Delivery Details</h3>
+      <input class="field" id="custName" placeholder="Your name">
+      <input class="field" id="custPhone" placeholder="10-digit mobile number" inputmode="numeric" maxlength="10">
+      <textarea class="field" id="address" placeholder="Full delivery address" rows="3"></textarea>
+      <button class="checkout" onclick="sendOrder()">Send Order on WhatsApp</button>
+      <p class="small">Your order will open in WhatsApp — just tap Send to confirm.</p>
+    </div>
+  </div>
+
+  <script>
+    const SHOP_WHATSAPP = "917631352084";
+    const products = [
+      { id: 1, name: "Fresh Milk", unit: "500 ml", price: 30, emoji: "🥛", cat: "Milk" },
+      { id: 2, name: "Fresh Milk", unit: "1 litre", price: 58, emoji: "🥛", cat: "Milk" },
+      { id: 3, name: "Curd", unit: "500 g", price: 40, emoji: "🥣", cat: "Curd" },
+      { id: 4, name: "Curd", unit: "1 kg", price: 75, emoji: "🥣", cat: "Curd" },
+      { id: 5, name: "Paneer", unit: "200 g", price: 90, emoji: "🧀", cat: "Paneer" },
+      { id: 6, name: "Desi Ghee", unit: "500 ml", price: 320, emoji: "🧈", cat: "Ghee" },
+      { id: 7, name: "Buttermilk", unit: "500 ml", price: 25, emoji: "🥛", cat: "Buttermilk" },
+      { id: 8, name: "Butter", unit: "100 g", price: 55, emoji: "🧈", cat: "Others" }
+    ];
+
+    const cats = [
+      ["All", "🛍️"],
+      ["Milk", "🥛"],
+      ["Curd", "🥣"],
+      ["Paneer", "🧀"],
+      ["Ghee", "🧈"],
+      ["Buttermilk", "🥛"],
+      ["Others", "🧺"]
+    ];
+
+    let active = "All";
+    let cart = JSON.parse(localStorage.getItem("bbgDairyCart") || "[]");
+
+    const money = n => "₹" + Number(n).toLocaleString("en-IN");
+
+    function renderCats(){
+      document.getElementById("cats").innerHTML = cats.map(([name, emoji]) =>
+        `<button class="cat" onclick="setCat('${name}')"><span class="emoji">${emoji}</span><span>${name}</span></button>`
+      ).join("");
+    }
+
+    function render(){
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const list = products.filter(p => {
+        const matchesCat = active === "All" || p.cat === active;
+        const haystack = `${p.name} ${p.unit} ${p.cat}`.toLowerCase();
+        return matchesCat && haystack.includes(q);
+      });
+
+      document.getElementById("productsTitle").textContent = active === "All" ? "Our Dairy Products" : active + " Products";
+
+      document.getElementById("products").innerHTML = list.length
+        ? list.map(p => `
+            <article class="product">
+              <div class="photo">${p.emoji}</div>
+              <h3>${p.name}</h3>
+              <div class="sub">Pack: ${p.unit}</div>
+              <div class="price">${money(p.price)} <span class="unit">/ pack</span></div>
+              <button class="add" onclick="add(${p.id})">+ Add to Cart</button>
+            </article>
+          `).join("")
+        : "<p>No products found.</p>";
+    }
+
+    function setCat(cat){
+      active = cat;
+      render();
+      document.getElementById("productsTitle").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
+      active = "All";
+      render();
+      document.getElementById("productsTitle").scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.getElementById("q").addEventListener("input", render);
+
+    function save(){
+      localStorage.setItem("bbgDairyCart", JSON.stringify(cart));
+      const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById("count").textContent = totalItems;
+    }
+
+    function add(id){
+      const existing = cart.find(item => item.id === id);
+      if (existing) existing.qty++;
+      else cart.push({ id, qty: 1 });
+
+      save();
+      openCart();
+    }
+
+    function openCart(){
+      document.getElementById("modal").style.display = "flex";
+      renderCart();
+    }
+    function closeCart(){
+      document.getElementById("modal").style.display = "none";
+    }
+
+    function change(id, delta){
+      const item = cart.find(i => i.id === id);
+      if (!item) return;
+      item.qty += delta;
+      cart = cart.filter(i => i.qty > 0);
+      save();
+      renderCart();
+    }
+
+    function renderCart(){
+      const el = document.getElementById("items");
+      if (!cart.length) {
+        el.innerHTML = "<p>Your cart is empty. Add some products first.</p>";
+      } else {
+        el.innerHTML = cart.map(item => {
+          const p = products.find(product => product.id === item.id);
+          return `
+            <div class="cartrow">
+              <div>
+                ${p.emoji} <b>${p.name}</b><br>
+                <span class="small">${p.unit} · ${money(p.price)}</span>
+              </div>
+              <div class="qty">
+                <button onclick="change(${item.id}, -1)">−</button>
+                ${item.qty}
+                <button onclick="change(${item.id}, 1)">+</button>
+              </div>
+              <b>${money(p.price * item.qty)}</b>
+            </div>
+          `;
+        }).join("");
+      }
+
+      const total = cart.reduce((sum, item) => {
+        const p = products.find(product => product.id === item.id);
+        return sum + (p ? p.price * item.qty : 0);
+      }, 0);
+
+      document.getElementById("total").textContent = "Total: " + money(total);
+    }
+
+    function sendOrder(){
+      if (!cart.length) {
+        alert("Please add products to your cart first.");
+        return;
+      }
+
+      const name = document.getElementById("custName").value.trim();
+      const phone = document.getElementById("custPhone").value.trim();
+      const address = document.getElementById("address").value.trim();
+
+      if (!name || !/^[0-9]{10}$/.test(phone) || !address) {
+        alert("Please enter your name, a valid 10-digit mobile number and your address.");
+        return;
+      }
+
+      if (SHOP_WHATSAPP === "91XXXXXXXXXX") {
+        alert("Shop WhatsApp number is not set up yet.");
+        return;
+      }
+
+      const lines = cart.map(item => {
+        const p = products.find(product => product.id === item.id);
+        return `${p.name} (${p.unit}) x ${item.qty} = ${money(p.price * item.qty)}`;
+      });
+
+      const total = cart.reduce((sum, item) => {
+        const p = products.find(product => product.id === item.id);
+        return sum + (p ? p.price * item.qty : 0);
+      }, 0);
+
+      const msg = `BBG Dairy - New Order\nName: ${name}\nCustomer Mobile: ${phone}\nAddress: ${address}\n\n${lines.join("\n")}\n\nTotal: ${money(total)}`;
+      window.open(`https://wa.me/${SHOP_WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank");
+    }
+
+    function openAuthModal(){
+      document.getElementById("authModal").style.display = "flex";
+    }
+    function closeAuthModal(){
+      document.getElementById("authModal").style.display = "none";
+    }
+
+    function switchAuthTab(tab){
+      const loginTab = document.getElementById("loginTabBtn");
+      const signupTab = document.getElementById("signupTabBtn");
+      const loginForm = document.getElementById("loginForm");
+      const signupForm = document.getElementById("signupForm");
+
+      if (tab === "login") {
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+      } else {
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+      }
+    }
+
+    function handleCustomerLogin(event){
+      event.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim();
+      const pass = document.getElementById("loginPass").value.trim();
+
+      if (!email || !pass) {
+        alert("Please enter both email and password.");
+        return;
+      }
+
+      const user = {
+        name: "Customer",
+        email: email,
+        phone: "+91 98765 43210",
+        address: "BBG Dairy Customer"
+      };
+
+      showLoggedInUser(user);
+    }
+
+    function handleCustomerSignup(event){
+      event.preventDefault();
+      const name = document.getElementById("signupName").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
+      const phone = document.getElementById("signupPhone").value.trim();
+      const address = document.getElementById("signupAddress").value.trim();
+      const pass = document.getElementById("signupPass").value.trim();
+
+      if (!name || !email || !phone || !address || !pass) {
+        alert("Please complete all signup fields.");
+        return;
+      }
+
+      const user = { name, email, phone, address };
+      showLoggedInUser(user);
+    }
+
+    function showLoggedInUser(user){
+      document.getElementById("userDisplayName").textContent = user.name;
+      document.getElementById("userDisplayEmail").textContent = user.email;
+      document.getElementById("userDisplayPhone").textContent = user.phone;
+      document.getElementById("userDisplayAddress").textContent = user.address;
+
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("signupForm").style.display = "none";
+      document.getElementById("userInfoArea").style.display = "block";
+    }
+
+    function logoutCustomer(){
+      document.getElementById("userInfoArea").style.display = "none";
+      document.getElementById("loginForm").style.display = "block";
+      document.getElementById("loginTabBtn").classList.add("active");
+      document.getElementById("signupTabBtn").classList.remove("active");
+      document.getElementById("loginEmail").value = "";
+      document.getElementById("loginPass").value = "";
+    }
+
+    function openAdmin(){
+      alert("Admin login panel is not connected yet. Add your backend or Firebase auth to enable it.");
+    }
+
+    renderCats();
+    render();
+    save();
+  </script>
+</body>
+</html>
